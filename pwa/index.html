@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff7fb">
+  <meta name="description" content="A lovely little weather app for wherever your day takes you.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nuthan Weather">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/sun.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Nuthan Weather</title>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Nuthan Weather home">
+        <span class="brand-icon" aria-hidden="true">☼</span>
+        <span><strong>Nuthan</strong><small>weather, with a little warmth</small></span>
+      </a>
+      <div class="top-actions">
+        <nav class="app-nav" aria-label="App sections">
+          <button id="weather-tab" class="nav-button active" type="button" aria-pressed="true">Weather</button>
+          <button id="chat-tab" class="nav-button" type="button" aria-pressed="false">Nuthan AI</button>
+        </nav>
+        <button id="unit-toggle" class="unit-toggle" type="button" aria-label="Switch temperature units">°C</button>
+        <button id="install-button" class="install-button" type="button" hidden>Install app</button>
+      </div>
+    </header>
+
+    <div id="weather-view">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">YOUR LITTLE WEATHER WINDOW</p>
+        <h1>A softer forecast<br><span>for your day.</span></h1>
+        <p class="welcome-copy">A little sunshine, wherever you are.</p>
+      </div>
+      <div class="welcome-art" aria-hidden="true">
+        <span class="art-sun">☀</span><span class="art-cloud">☁</span>
+        <span class="art-sparkle sparkle-one">✦</span><span class="art-sparkle sparkle-two">✧</span>
+      </div>
+    </section>
+
+    <section class="location-tools" aria-label="Choose a location">
+      <form id="search-form" class="search-form">
+        <label class="sr-only" for="city-search">Search for a city</label>
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="city-search" type="search" placeholder="Find a city or place…" maxlength="80" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+      <button id="location-button" class="location-button" type="button">
+        <span aria-hidden="true">◎</span> Use my location
+      </button>
+    </section>
+    <div id="search-results" class="search-results" aria-live="polite"></div>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <section id="weather-content" aria-live="polite">
+      <article id="current-card" class="current-card" aria-label="Current weather">
+        <div class="current-copy">
+          <p class="current-label">RIGHT NOW</p>
+          <h2 id="place-name">London</h2>
+          <p id="local-time" class="local-time"></p>
+          <div class="temperature-line"><span id="temperature" class="temperature">—°</span><span id="weather-icon" class="weather-icon" aria-hidden="true">☀️</span></div>
+          <p id="condition" class="condition">Gathering your forecast…</p>
+          <p id="high-low" class="high-low"></p>
+        </div>
+        <div class="current-flower" aria-hidden="true">✿</div>
+      </article>
+
+      <section class="details-section" aria-labelledby="details-heading">
+        <div class="section-title-row">
+          <div><p class="eyebrow">A FEW LITTLE DETAILS</p><h2 id="details-heading">The feel of today</h2></div>
+          <span class="units-note">Temperatures in <span id="unit-note">°C</span></span>
+        </div>
+        <div class="metric-grid">
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true">♡</span><span class="metric-label">Feels like</span><strong id="feels-like">—</strong></article>
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true">◌</span><span class="metric-label">Humidity</span><strong id="humidity">—</strong></article>
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true">≈</span><span class="metric-label">Wind</span><strong id="wind">—</strong></article>
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true">☂</span><span class="metric-label">Rain now</span><strong id="rain-now">—</strong></article>
+        </div>
+      </section>
+
+      <section class="forecast-section" aria-labelledby="hourly-heading">
+        <div class="section-title-row">
+          <div><p class="eyebrow">COMING UP</p><h2 id="hourly-heading">The next few hours</h2></div>
+          <span class="soft-note">Little changes, hour by hour</span>
+        </div>
+        <div id="hourly-list" class="hourly-list"></div>
+      </section>
+
+      <section class="forecast-section" aria-labelledby="daily-heading">
+        <div class="section-title-row">
+          <div><p class="eyebrow">AHEAD THIS WEEK</p><h2 id="daily-heading">Seven-day outlook</h2></div>
+          <span class="soft-note">A peek at what’s to come</span>
+        </div>
+        <div class="daily-heading" aria-hidden="true"><span>DAY</span><span>FORECAST</span><span>RAIN</span><span>HIGH / LOW</span></div>
+        <div id="daily-list" class="daily-list"></div>
+      </section>
+
+      <footer class="footer">
+        <span id="sunrise-sunset">☀ Sunrise and sunset —</span>
+        <span>Forecast from <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></span>
+      </footer>
+    </section>
+    </div>
+
+    <section id="chat-view" class="chat-view" hidden>
+      <div class="chat-heading">
+        <p class="eyebrow">A HELPFUL LITTLE SIDEKICK</p>
+        <h1>A thought partner<br><span>for your day.</span></h1>
+        <p class="welcome-copy">Ask Nuthan to explain, brainstorm, or help you write.</p>
+      </div>
+      <form id="key-form" class="key-card">
+        <label for="api-key">Gemini API key</label>
+        <p>Your key stays in this page session and is sent to Google when you chat. It is not saved on this device.</p>
+        <div class="key-entry">
+          <input id="api-key" type="password" placeholder="Paste your Gemini API key" autocomplete="off" spellcheck="false">
+          <button id="save-key" type="submit">Use key</button>
+        </div>
+        <div class="key-footer">
+          <span id="key-status" role="status" aria-live="polite">No key added</span>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer">Get a key ↗</a>
+          <button id="forget-key" type="button">Forget key</button>
+        </div>
+      </form>
+      <div id="chat-messages" class="chat-messages" aria-live="polite">
+        <article class="chat-bubble assistant-bubble"><strong>Nuthan</strong><p>Hi there! What would you like a hand with?</p></article>
+      </div>
+      <form id="chat-form" class="chat-form">
+        <label class="sr-only" for="chat-prompt">Message Nuthan</label>
+        <textarea id="chat-prompt" rows="2" maxlength="4000" placeholder="Write a message…" required></textarea>
+        <button id="send-message" type="submit">Send</button>
+      </form>
+      <div id="chat-status" class="status" role="status" aria-live="polite"></div>
+      <p class="chat-disclaimer">AI responses can be inaccurate. Please don’t share sensitive information.</p>
+    </section>
+
+    <noscript><p class="status error">Please enable JavaScript to use Nuthan Weather.</p></noscript>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>

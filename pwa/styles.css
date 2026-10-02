@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+:root {
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  color: #503b51;
+  background: #fff8fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #503b51;
+  --muted: #927a90;
+  --rose: #b95686;
+  --lavender: #8873ad;
+  --border: #f0e1eb;
+  --card: rgba(255, 255, 255, .86);
+}
+
+* { box-sizing: border-box; }
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 86% 2%, rgba(246, 211, 229, .42), transparent 31rem),
+    radial-gradient(ellipse at 4% 42%, rgba(236, 222, 246, .34), transparent 29rem),
+    #fff8fb;
+}
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 3px solid #b95686;
+  outline-offset: 3px;
+}
+.shell { width: min(100% - 44px, 1020px); margin: 0 auto; padding: 24px 0 36px; }
+.topbar, .brand, .top-actions, .location-tools, .search-form, .section-title-row, .footer {
+  display: flex; align-items: center;
+}
+.topbar { justify-content: space-between; min-height: 50px; }
+.brand { gap: 10px; color: inherit; text-decoration: none; }
+.brand-icon {
+  display: grid; width: 43px; height: 43px; place-items: center; border-radius: 15px;
+  color: white; background: linear-gradient(145deg, #f2a8c7, #b48bd2);
+  box-shadow: 0 8px 20px rgba(181, 111, 157, .2); font-size: 25px;
+}
+.brand strong { display: block; font-size: 17px; letter-spacing: -.04em; }
+.brand small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+.top-actions { gap: 9px; }
+.app-nav { display: flex; gap: 3px; padding: 4px; border: 1px solid var(--border); border-radius: 15px; background: rgba(255,255,255,.7); }
+.nav-button { min-height: 32px; padding: 0 11px; border: 0; border-radius: 11px; color: #8f7890; background: transparent; cursor: pointer; font-size: 12px; font-weight: 650; }
+.nav-button.active { color: #fff; background: #ae638f; box-shadow: 0 3px 8px rgba(160,82,128,.16); }
+.unit-toggle, .install-button, .location-button {
+  min-height: 42px; border: 1px solid var(--border); border-radius: 14px;
+  background: rgba(255, 255, 255, .76); color: var(--ink); cursor: pointer;
+}
+.unit-toggle { min-width: 54px; font-weight: 700; }
+.install-button { padding: 0 15px; color: #fff; border-color: transparent; background: var(--rose); font-weight: 650; }
+.welcome { display: flex; position: relative; min-height: 222px; align-items: center; justify-content: space-between; overflow: hidden; margin: 25px 0 19px; padding: 30px 42px; border: 1px solid #f4dce8; border-radius: 30px; background: linear-gradient(115deg, #fff0f6, #f5effb 75%, #f1edfb); }
+.eyebrow { margin: 0 0 8px; color: #ae6a91; font-size: 10px; font-weight: 700; letter-spacing: .15em; }
+.welcome h1 { margin: 0; color: #543950; font: 600 clamp(32px, 5vw, 46px)/1.1 "Playfair Display", Georgia, serif; letter-spacing: -.035em; }
+.welcome h1 span { color: #9b668f; }
+.welcome-copy { margin: 12px 0 0; color: #8b7388; font-size: 14px; }
+.welcome-art { position: relative; width: 220px; height: 160px; flex: 0 0 220px; }
+.art-sun { position: absolute; top: 0; right: 35px; color: #e5a056; font-size: 110px; filter: drop-shadow(0 8px 16px rgba(217, 156, 87, .15)); }
+.art-cloud { position: absolute; right: 82px; bottom: -13px; color: #c4a9c7; font-size: 118px; }
+.art-sparkle { position: absolute; z-index: 1; color: #b77aa0; }
+.sparkle-one { top: 18px; left: 18px; font-size: 21px; }
+.sparkle-two { right: 12px; bottom: 22px; font-size: 29px; }
+.location-tools { gap: 10px; }
+.search-form { flex: 1; min-width: 0; gap: 8px; padding: 5px 6px 5px 14px; border: 1px solid var(--border); border-radius: 16px; background: #fff; box-shadow: 0 8px 26px rgba(120, 79, 111, .045); }
+.search-icon { color: #ad78a0; font-size: 24px; line-height: 1; }
+.search-form input { width: 100%; min-width: 0; height: 39px; border: 0; outline: 0; color: var(--ink); background: transparent; }
+.search-form input::placeholder { color: #ac99aa; }
+.search-form input:focus-visible { outline: 0; }
+.search-form:focus-within { outline: 3px solid rgba(185, 86, 134, .26); outline-offset: 2px; }
+.search-form button { min-height: 38px; padding: 0 17px; border: 0; border-radius: 11px; color: #fff; background: #b95686; cursor: pointer; font-weight: 650; }
+.location-button { padding: 0 15px; color: #835e87; font-weight: 600; white-space: nowrap; }
+.location-button span { margin-right: 5px; color: #bd6f9b; font-size: 18px; }
+.search-results { display: grid; gap: 7px; margin-top: 9px; }
+.place-result { min-height: 44px; padding: 9px 13px; border: 1px solid var(--border); border-radius: 12px; color: var(--ink); background: #fff; text-align: left; cursor: pointer; }
+.place-result:hover { border-color: #dca8c4; background: #fff6fa; }
+.status { min-height: 0; margin-top: 0; color: #856e83; font-size: 13px; }
+.status:not(:empty) { margin: 10px 2px; }
+.status.error { padding: 11px 13px; border: 1px solid #f0cbd6; border-radius: 12px; color: #8d4059; background: #fff1f4; }
+.status.success { color: #6b7f63; }
+.current-card { display: flex; position: relative; min-height: 255px; align-items: center; justify-content: space-between; overflow: hidden; margin-top: 20px; padding: 31px 38px; border: 1px solid rgba(255,255,255,.55); border-radius: 28px; color: white; background: radial-gradient(circle at 83% 20%, rgba(255,255,255,.22), transparent 13rem), linear-gradient(122deg, #a94d7c, #86618f 57%, #7770a9); box-shadow: 0 20px 48px rgba(134, 83, 132, .17); }
+.current-label { margin: 0; color: #f9dce9; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
+.current-card h2 { margin: 7px 0 0; font: 600 clamp(23px, 4vw, 32px)/1.15 "Playfair Display", Georgia, serif; letter-spacing: -.025em; }
+.local-time { margin: 6px 0 0; color: #f5dbe9; font-size: 13px; }
+.temperature-line { display: flex; align-items: center; gap: 16px; margin-top: 7px; }
+.temperature { font: 400 clamp(76px, 12vw, 108px)/.95 "Playfair Display", Georgia, serif; letter-spacing: -.075em; }
+.weather-icon { font-size: clamp(45px, 8vw, 70px); filter: drop-shadow(0 7px 10px rgba(75, 41, 63, .12)); }
+.condition { margin: 0; color: #fff1f7; font-size: 16px; font-weight: 600; }
+.high-low { margin: 8px 0 0; color: #f5dbe9; font-size: 13px; }
+.current-flower { position: absolute; right: 40px; color: rgba(255,255,255,.14); font-size: 160px; transform: rotate(-15deg); pointer-events: none; }
+.details-section, .forecast-section { margin-top: 32px; }
+.section-title-row { justify-content: space-between; gap: 16px; margin-bottom: 13px; }
+.section-title-row .eyebrow { margin-bottom: 4px; font-size: 9px; }
+.section-title-row h2 { margin: 0; color: #563f57; font: 600 23px/1.25 "Playfair Display", Georgia, serif; letter-spacing: -.02em; }
+.units-note, .soft-note { color: #9a8498; font-size: 11px; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+.metric-card { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 9px; min-height: 84px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 17px; background: var(--card); box-shadow: 0 8px 22px rgba(120,79,111,.04); }
+.metric-icon { grid-row: span 2; display: grid; width: 35px; height: 35px; place-items: center; border-radius: 12px; color: #ae6793; background: #faeaf2; font-size: 19px; }
+.metric-label { color: #937d91; font-size: 11px; }
+.metric-card strong { align-self: start; color: #523d53; font-size: 17px; }
+.hourly-list { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 9px; }
+.hour-card { display: grid; justify-items: center; gap: 6px; min-height: 112px; padding: 13px 6px; border: 1px solid var(--border); border-radius: 17px; background: var(--card); text-align: center; }
+.hour-time { color: #8d778e; font-size: 11px; }
+.hour-icon { font-size: 24px; }
+.hour-temp { color: #503b51; font-weight: 700; }
+.hour-rain { color: #8a76ad; font-size: 10px; }
+.daily-heading, .day-row { display: grid; grid-template-columns: 1fr 1.7fr .65fr 1fr; align-items: center; gap: 12px; }
+.daily-heading { padding: 5px 15px 8px; color: #ae8da6; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+.day-row { min-height: 57px; margin-top: 7px; padding: 8px 15px; border: 1px solid var(--border); border-radius: 15px; background: var(--card); }
+.day-name { color: #604a61; font-size: 12px; font-weight: 650; }
+.day-weather { display: flex; align-items: center; gap: 8px; color: #8b778c; font-size: 11px; }
+.day-weather-icon { font-size: 20px; }
+.day-rain { color: #8a76ad; font-size: 11px; }
+.day-temps { display: flex; justify-content: flex-end; gap: 12px; color: #503b51; font-size: 12px; font-weight: 650; }
+.day-temps span:last-child { color: #a58fa4; font-weight: 500; }
+.footer { justify-content: space-between; gap: 15px; margin-top: 23px; padding: 13px 2px; color: #927d91; font-size: 11px; }
+.footer a { color: #98618b; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.chat-view { max-width: 760px; margin: 28px auto 0; }
+.chat-heading { padding: 29px 32px; border: 1px solid #f3dce8; border-radius: 25px; background: linear-gradient(115deg,#fff0f6,#f4effb); }
+.chat-heading h1 { margin: 0; color: #543950; font: 600 clamp(30px,5vw,43px)/1.1 "Playfair Display",Georgia,serif; letter-spacing: -.035em; }
+.chat-heading h1 span { color: #9b668f; }
+.chat-heading .welcome-copy { margin-bottom: 0; }
+.key-card { margin-top: 15px; padding: 17px; border: 1px solid var(--border); border-radius: 17px; background: #fff; }
+.key-card label { display: block; color: #5b435b; font-size: 13px; font-weight: 700; }
+.key-card p { margin: 6px 0 11px; color: #8f7b8d; font-size: 11px; line-height: 1.55; }
+.key-entry { display: flex; gap: 8px; }
+.key-entry input, .chat-form textarea { width: 100%; min-width: 0; border: 1px solid #ecdde8; border-radius: 12px; padding: 11px 12px; color: var(--ink); background: #fffafd; }
+.key-entry button, .chat-form button { min-width: 82px; border: 0; border-radius: 12px; padding: 0 14px; color: white; background: var(--rose); cursor: pointer; font-weight: 650; }
+.key-footer { display: flex; align-items: center; gap: 14px; margin-top: 10px; color: #9a8498; font-size: 11px; }
+.key-footer a { color: #98618b; }
+.key-footer button { margin-left: auto; padding: 4px; border: 0; color: #927d91; background: transparent; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; font-size: 11px; }
+.chat-messages { display: grid; gap: 10px; min-height: 105px; max-height: 42vh; overflow: auto; margin-top: 15px; padding: 14px; border: 1px solid var(--border); border-radius: 18px; background: rgba(255,255,255,.6); }
+.chat-bubble { width: fit-content; max-width: 88%; padding: 12px 15px; border: 1px solid #f0e1eb; border-radius: 15px; background: white; }
+.chat-bubble strong { color: #98618b; font-size: 11px; }
+.chat-bubble p { margin: 5px 0 0; color: #57465a; font-size: 13px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.user-bubble { justify-self: end; border-color: #eed5e4; background: #fff0f6; }
+.chat-form { display: flex; align-items: stretch; gap: 9px; margin-top: 10px; }
+.chat-form textarea { min-height: 54px; resize: vertical; }
+.chat-form button { min-width: 80px; }
+.chat-form button:disabled { cursor: wait; opacity: .65; }
+.chat-disclaimer { color: #99889a; font-size: 10px; text-align: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 700px) {
+  .shell { width: min(100% - 30px, 560px); padding-top: max(13px, env(safe-area-inset-top)); padding-bottom: max(22px, env(safe-area-inset-bottom)); }
+  .welcome { min-height: 196px; padding: 25px 23px; border-radius: 24px; }
+  .welcome-art { width: 145px; height: 135px; flex-basis: 145px; margin-right: -17px; }
+  .art-sun { right: 10px; font-size: 84px; }
+  .art-cloud { right: 28px; bottom: -10px; font-size: 92px; }
+  .sparkle-one { left: 1px; }
+  .location-tools { align-items: stretch; flex-direction: column; }
+  .location-button { min-height: 43px; }
+  .current-card { min-height: 235px; padding: 26px 23px; border-radius: 23px; }
+  .current-flower { right: -5px; font-size: 130px; }
+  .metric-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .hourly-list { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .hour-card { min-height: 102px; }
+}
+@media (max-width: 430px) {
+  .topbar { align-items: flex-start; gap: 8px; }
+  .top-actions { flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+  .app-nav { order: 2; width: 100%; justify-content: center; }
+  .nav-button { padding: 0 9px; }
+  .unit-toggle, .install-button { min-height: 38px; }
+  .brand small { font-size: 10px; }
+  .welcome { min-height: 180px; padding: 22px 18px; }
+  .welcome h1 { font-size: 33px; }
+  .welcome-art { width: 103px; flex-basis: 103px; margin-right: -20px; }
+  .art-sun { right: 2px; top: 8px; font-size: 70px; }
+  .art-cloud { right: 16px; font-size: 73px; }
+  .welcome-copy { max-width: 205px; font-size: 12px; }
+  .current-card { min-height: 218px; padding: 23px 19px; }
+  .temperature-line { gap: 10px; }
+  .section-title-row h2 { font-size: 21px; }
+  .soft-note { display: none; }
+  .daily-heading, .day-row { grid-template-columns: .9fr 1.4fr .55fr .9fr; gap: 5px; padding-right: 9px; padding-left: 9px; }
+  .daily-heading { font-size: 8px; }
+  .day-weather { gap: 4px; font-size: 10px; }
+  .day-weather-icon { font-size: 17px; }
+  .day-temps { gap: 5px; font-size: 11px; }
+  .footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .chat-heading { padding: 23px 19px; }
+  .key-card { padding: 13px; }
+  .key-footer { gap: 9px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .current-card, .metric-card, .hour-card, .day-row { animation: appear .42s ease both; }
+  @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+}
