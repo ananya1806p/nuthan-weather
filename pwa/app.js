@@ -3,6 +3,7 @@ const state = {
   location: loadLocation(),
   unit: localStorage.getItem("nuthan-unit") === "fahrenheit" ? "fahrenheit" : "celsius",
   deferredInstall: null,
+  clockInterval: null,
   apiKey: "",
   chatMessages: [],
   chatPage: false,
@@ -57,8 +58,62 @@ function temperature(value) {
 }
 
 function displayTime(value, options) {
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.valueOf()) ? "—" : new Intl.DateTimeFormat(undefined, options).format(parsed);
+  const match = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?)?$/
+    .exec(String(value));
+  if (!match) return "—";
+  const [, year, month, day, hour = "0", minute = "0", second = "0"] = match;
+  const parsed = new Date(Date.UTC(
+    Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second),
+  ));
+  if (
+    parsed.getUTCFullYear() !== Number(year)
+    || parsed.getUTCMonth() !== Number(month) - 1
+    || parsed.getUTCDate() !== Number(day)
+    || parsed.getUTCHours() !== Number(hour)
+    || parsed.getUTCMinutes() !== Number(minute)
+    || parsed.getUTCSeconds() !== Number(second)
+  ) return "—";
+  return new Intl.DateTimeFormat(undefined, { ...options, timeZone: "UTC" }).format(parsed);
+}
+
+function localTimeKey(timeZone, date = new Date()) {
+  try {
+    const parts = Object.fromEntries(
+      new Intl.DateTimeFormat("en-CA", {
+        timeZone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      }).formatToParts(date).map(({ type, value }) => [type, value]),
+    );
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  } catch {
+    return null;
+  }
+}
+
+function renderPlaceClock(timeZone) {
+  if (state.clockInterval) window.clearInterval(state.clockInterval);
+  const update = () => {
+    try {
+      const time = new Intl.DateTimeFormat(undefined, {
+        timeZone,
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      }).format(new Date());
+      $("local-time").textContent = `Local time · ${time} (${timeZone})`;
+    } catch {
+      $("local-time").textContent = "Local time unavailable";
+    }
+  };
+  update();
+  state.clockInterval = window.setInterval(update, 60_000);
 }
 
 async function requestJson(url) {
@@ -121,6 +176,9 @@ async function loadWeather() {
   const params = new URLSearchParams({
     latitude: String(latitude),
     longitude: String(longitude),
+    temperature_unit: "celsius",
+    wind_speed_unit: "kmh",
+    precipitation_unit: "mm",
     current: "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m",
     hourly: "temperature_2m,precipitation_probability,weather_code",
     daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset",
@@ -145,7 +203,7 @@ function renderWeather(data) {
   const daily = data.daily;
   const [label, icon] = weather(current.weather_code);
   $("place-name").textContent = state.location.name;
-  $("local-time").textContent = displayTime(current.time, { weekday: "long", month: "long", day: "numeric", hour: "numeric", minute: "2-digit" });
+  renderPlaceClock(data.timezone);
   $("temperature").textContent = temperature(current.temperature_2m);
   $("weather-icon").textContent = icon;
   $("condition").textContent = label;
@@ -156,7 +214,7 @@ function renderWeather(data) {
   $("rain-now").textContent = Number.isFinite(Number(current.precipitation)) ? `${num(current.precipitation, 1)} mm` : "—";
   $("unit-note").textContent = state.unit === "fahrenheit" ? "°F" : "°C";
 
-  renderHourly(data.hourly || {}, current.time);
+  renderHourly(data.hourly || {}, localTimeKey(data.timezone) || current.time);
   renderDaily(daily);
   const sunrise = daily.sunrise?.[0];
   const sunset = daily.sunset?.[0];
@@ -169,11 +227,14 @@ function renderHourly(hourly, currentTime) {
   const container = $("hourly-list");
   container.replaceChildren();
   if (!Array.isArray(hourly.time) || !hourly.time.length) {
-    showStatus("Hourly forecast is not available right now.", "error");
+    container.textContent = "Hourly forecast is not available right now.";
     return;
   }
-  let start = hourly.time.findIndex((time) => time >= currentTime);
-  if (start < 0) start = 0;
+  const start = hourly.time.findIndex((time) => time >= currentTime);
+  if (start < 0) {
+    container.textContent = "Upcoming hourly forecast is not available right now.";
+    return;
+  }
   for (const index of Array.from({ length: Math.min(6, hourly.time.length - start) }, (_, offset) => start + offset)) {
     const [label, icon] = weather(hourly.weather_code?.[index]);
     const card = document.createElement("article");
@@ -194,7 +255,7 @@ function renderDaily(daily) {
     const [label, icon] = weather(daily.weather_code?.[index]);
     const dayName = index === 0
       ? "Today"
-      : displayTime(`${daily.time[index]}T12:00:00`, { weekday: "long" });
+      : displayTime(daily.time[index], { weekday: "long" });
     const rainValue = daily.precipitation_probability_max?.[index];
     const row = document.createElement("article");
     row.className = "day-row";
