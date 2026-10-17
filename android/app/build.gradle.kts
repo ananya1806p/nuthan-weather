@@ -18,14 +18,14 @@ val hasReleaseSigning = listOf(
 
 android {
     namespace = "com.ananya.nuthanweather"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.ananya.nuthanweather"
         minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        targetSdk = 37
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     if (hasReleaseSigning) {

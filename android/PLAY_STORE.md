@@ -6,7 +6,7 @@ The Android app includes the weather dashboard, city search, seven-day outlook, 
 
 ## Build and test
 
-Open the `android\` folder in current Android Studio with JDK 17 and Android SDK 36 installed, or run:
+Open the `android\` folder in current Android Studio with JDK 17 and Android SDK 37 installed, or run:
 
 ```powershell
 cd android
@@ -35,7 +35,7 @@ The `Build native Android app` GitHub Actions workflow performs the same test an
 - **Icon:** `pwa\icons\icon-512.png` (confirm Play's current icon requirements)
 - **Screenshots:** Capture the native Android app on a phone and tablet after testing; don't use PWA or browser screenshots for the native listing.
 
-The build uses target SDK 36; recheck Google Play's current target-API deadline before each release.
+The build targets Android 17 (API 37) and uses version code 2. Recheck Google Play's current target-API deadline before each release.
 
 ## App and data behavior
 

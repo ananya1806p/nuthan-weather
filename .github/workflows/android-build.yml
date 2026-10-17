@@ -33,7 +33,7 @@ jobs:
         with:
           packages: platform-tools
       - name: Install Android SDK platform
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        run: sdkmanager --channel=3 "platforms;android-37.2" "build-tools;37.0.0"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Decode optional Play upload key
@@ -52,6 +52,10 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: ./gradlew testDebugUnitTest assembleDebug bundleRelease
+      - name: Verify APK targets Android 17
+        run: |
+          "$ANDROID_HOME/build-tools/37.0.0/aapt" dump badging android/app/build/outputs/apk/debug/app-debug.apk \
+            | grep -F "targetSdkVersion:'37'"
       - name: Upload debug APK and release bundle
         uses: actions/upload-artifact@v4
         with:
