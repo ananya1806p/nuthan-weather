@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.NuthanWeather" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:statusBarColor">#FFF8FB</item>
+        <item name="android:navigationBarColor">#FFF8FB</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:colorAccent">#B65C88</item>
+    </style>
+</resources>

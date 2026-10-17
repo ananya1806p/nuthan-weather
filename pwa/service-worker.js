@@ -1,4 +1,4 @@
-const CACHE_NAME = "nuthan-weather-shell-v2";
+const CACHE_NAME = "nuthan-weather-shell-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const APP_SHELL = [
   "./app.js",
   "./manifest.webmanifest",
   "./icons/sun.svg",
+  "./privacy.html",
 ];
 
 self.addEventListener("install", (event) => {
