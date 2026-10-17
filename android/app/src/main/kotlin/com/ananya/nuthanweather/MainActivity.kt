@@ -572,7 +572,10 @@ private fun NativeChatScreen(session: NativeChatState) {
 
     Column(verticalArrangement = Arrangement.spacedBy(13.dp)) {
         Text("Nuthan AI", color = RoseDark, fontWeight = FontWeight.Bold, fontSize = 26.sp)
-        Text("Ask Nuthan to explain, brainstorm, or help you write.", color = Muted)
+        Text(
+            "Powered by Gemini 3.1 Flash-Lite. Ask Nuthan to explain, brainstorm, or help you write.",
+            color = Muted,
+        )
         Card(
             colors = CardDefaults.cardColors(containerColor = Color.White),
             border = CardDefaults.outlinedCardBorder(),

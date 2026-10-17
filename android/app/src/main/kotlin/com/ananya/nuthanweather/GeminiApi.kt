@@ -10,6 +10,8 @@ import java.net.URL
 data class ChatTurn(val role: String, val text: String)
 
 object GeminiApi {
+    private const val MODEL = "gemini-3.1-flash-lite"
+
     suspend fun reply(apiKey: String, history: List<ChatTurn>): String = withContext(Dispatchers.IO) {
         require(apiKey.isNotBlank()) { "Add your Gemini API key to start chatting." }
 
@@ -38,7 +40,7 @@ object GeminiApi {
             .put("contents", contents)
 
         val connection = URL(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/$MODEL:generateContent",
         ).openConnection() as HttpURLConnection
         connection.requestMethod = "POST"
         connection.connectTimeout = 15_000
