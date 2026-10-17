@@ -13,7 +13,7 @@ cd android
 .\gradlew.bat testDebugUnitTest assembleDebug bundleRelease
 ```
 
-The `Build native Android app` GitHub Actions workflow performs the same test and builds a debug APK and a release Android App Bundle (AAB) artifact. The release AAB is **unsigned** until an app-owner upload key is configured; it cannot be uploaded to Play Console as-is.
+The `Build native Android app` GitHub Actions workflow runs the tests and builds a debug APK for CI validation plus a release Android App Bundle (AAB) artifact. It does not publish the debug APK for installation: debug builds are for testing, and installing APKs from outside Google Play can trigger Android security warnings. The release AAB is **unsigned** until an app-owner upload key is configured; it cannot be uploaded to Play Console as-is. Distribute the native app through Google Play after signing, account setup, and review.
 
 ## Before uploading to Google Play
 

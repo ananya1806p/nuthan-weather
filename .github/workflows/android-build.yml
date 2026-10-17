@@ -56,11 +56,9 @@ jobs:
         run: |
           "$ANDROID_HOME/build-tools/37.0.0/aapt" dump badging android/app/build/outputs/apk/debug/app-debug.apk \
             | grep -F "targetSdkVersion:'37'"
-      - name: Upload debug APK and release bundle
+      - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nuthan-weather-android
-          path: |
-            android/app/build/outputs/apk/debug/app-debug.apk
-            android/app/build/outputs/bundle/release/app-release.aab
+          name: nuthan-weather-release-bundle
+          path: android/app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
